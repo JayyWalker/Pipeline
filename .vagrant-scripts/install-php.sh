@@ -15,7 +15,7 @@ install_php ()
 
   apt-get install -y php7.2 >> /dev/null
 
-  apt-get install -y php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-xml >> /dev/null
+  apt-get install -y php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-xml php-xdebug>> /dev/null
 }
 
 install_composer ()
