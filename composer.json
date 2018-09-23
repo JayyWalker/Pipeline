@@ -1,0 +1,12 @@
+{
+  "name": "jayyonline/pipeline",
+  "description": "HTTP middleware framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jordan Walker",
+      "email": "jordan@jayy.online"
+    }
+  ],
+  "require": {}
+}
