@@ -1,0 +1,7 @@
+<?php
+
+use PHPUnit\Framework\TestCase;
+
+class <CLASS_NAME>Test extends TestCase
+{
+}
