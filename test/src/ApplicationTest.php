@@ -18,4 +18,15 @@ class ApplicationTest extends TestCase
             $app->getRequest()
         );
     }
+
+    public function testUse ()
+    {
+        $app = new Application;
+        $app->use('Foo\\Bar');
+
+        $this->assertContains(
+            'Foo\\Bar',
+            $app->getMiddlewares()
+        );
+    }
 }

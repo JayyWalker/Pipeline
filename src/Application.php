@@ -12,6 +12,23 @@ class Application
     protected $request;
 
     /**
+     * @var array
+     */
+    protected $middlewares = [];
+
+    /**
+     * @param $middleware
+     *
+     * @return $this
+     */
+    public function use ($middleware)
+    {
+        $this->middlewares[] = $middleware;
+
+        return $this;
+    }
+
+    /**
      * setRequest
      *
      * @param Symfony\Component\HttpFoundation\Request $request
@@ -33,5 +50,15 @@ class Application
     public function getRequest (): Request
     {
         return $this->request;
+    }
+
+    /**
+     * getMiddlewares
+     *
+     * @return array
+     */
+    public function getMiddlewares ()
+    {
+        return $this->middlewares;
     }
 }
