@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/home/vagrant/pipeline"
 
+  config.vm.network :private_network, ip: "182.24.156.81"
   config.vm.hostname = "pipeline.vagrant"
   config.vm.define "pipeline"
 
