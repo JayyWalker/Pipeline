@@ -14,9 +14,13 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.3"
+    "phpunit/phpunit": "^7.3",
+    "kint-php/kint": "^2.2"
   },
   "scripts": {
     "test": "phpunit -c ./test/phpunit.xml"
+  },
+  "require": {
+    "symfony/http-foundation": "^4.1"
   }
 }
