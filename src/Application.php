@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 class Application 
 {
     /**
-     * @var Symfony\Component\HttpFoundation\Request
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -29,13 +29,11 @@ class Application
     }
 
     /**
-     * setRequest
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @param Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return void
+     * @return $this
      */
-    public function setRequest (Request $request)
+    public function setRequest (Request $request): Application
     {
         $this->request = $request;
 
@@ -43,9 +41,7 @@ class Application
     }
 
     /**
-     * getRequest
-     * 
-     * @return Symfony\Component\HttpFoundation\Request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     public function getRequest (): Request
     {
