@@ -8,6 +8,11 @@
       "email": "jordan@jayy.online"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "Pipeline\\": "src/"
+    }
+  },
   "require": {
     "phpunit/phpunit": "^7.3"
   },
