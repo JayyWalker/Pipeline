@@ -8,5 +8,10 @@
       "email": "jordan@jayy.online"
     }
   ],
-  "require": {}
+  "require": {
+    "phpunit/phpunit": "^7.3"
+  },
+  "scripts": {
+    "test": "phpunit -c ./test/phpunit.xml"
+  }
 }
