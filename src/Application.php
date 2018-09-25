@@ -43,11 +43,13 @@ class Application
         $callback = null;
 
         if (is_callable($middleware)) {
-            // Change this into type hinted dependency injection.
+
+            // TODO: Change this into type hinted dependency injection.
             $callback = call_user_func_array($middleware, [
                 $this->request,
                 $response
             ]);
+            
         }
 
         return $callback;
