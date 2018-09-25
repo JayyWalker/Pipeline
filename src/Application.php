@@ -49,8 +49,10 @@ class Application
                 $this->request,
                 $response
             ]);
-            
+
         }
+
+        // TODO: Execute if $middleware is a class
 
         return $callback;
     }
