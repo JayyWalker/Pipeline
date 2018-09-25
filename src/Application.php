@@ -3,6 +3,7 @@
 namespace Pipeline;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Application 
 {
@@ -26,6 +27,30 @@ class Application
         $this->middlewares[] = $middleware;
 
         return $this;
+    }
+
+    public function run ()
+    {
+        $response = new Response();
+
+        foreach ($this->middlewares as $middleware) {
+            $this->executeMiddleware($middleware, $response);
+        }
+    }
+
+    public function executeMiddleware ($middleware, Response $response)
+    {
+        $callback = null;
+
+        if (is_callable($middleware)) {
+            // Change this into type hinted dependency injection.
+            $callback = call_user_func_array($middleware, [
+                $this->request,
+                $response
+            ]);
+        }
+
+        return $callback;
     }
 
     /**
