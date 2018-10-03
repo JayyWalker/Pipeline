@@ -49,10 +49,13 @@ class Application
                 $this->request,
                 $response
             ]);
-
         }
 
         // TODO: Execute if $middleware is a class
+        if (is_string($middleware) && class_exists($middleware)) {
+            $callback = call_user_func_array(
+            );
+        }
 
         return $callback;
     }
