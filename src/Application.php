@@ -3,6 +3,7 @@
 namespace Pipeline;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Application 
 {
@@ -59,5 +60,15 @@ class Application
     public function getMiddlewares ()
     {
         return $this->middlewares->getMiddlewares();
+    }
+
+	public function run ()
+	{
+		$response = new Response;
+		$response = $this->middlewares->execute($this->request, $response);
+
+		$response->send();
+
+		return $response;
     }
 }
