@@ -4,16 +4,24 @@ use PHPUnit\Framework\TestCase;
 
 class MiddlewareStackTest extends TestCase
 {
+	/**
+	 * @var \Pipeline\MiddlewareStack
+	 */
+	protected $middlewareStack;
+
+	protected function setUp()
+	{
+		$this->middlewareStack = new \Pipeline\MiddlewareStack;
+	}
+
 	public function testPush()
 	{
-		$class = new \Pipeline\MiddlewareStack;
-
-		$class->push('Foo\\Bar');
-		$class->push('Bar\\Foo');
+		$this->middlewareStack->push('Foo\\Bar');
+		$this->middlewareStack->push('Bar\\Foo');
 
 		$this->assertEquals(
 			['Foo\\Bar', 'Bar\\Foo'],
-			$class->getMiddlewares()
+			$this->middlewareStack->getMiddlewares()
 		);
 	}
 }
