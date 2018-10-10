@@ -20,6 +20,23 @@ class MiddlewareStack
 		$this->middlewares[] = $middleware;
 	}
 
+	public function execute(Request $request)
+	{
+		$response = new Response;
+
+		foreach ($this->middlewares as $middleware) {
+			$call = $this->call($middleware, $request, $response);
+
+			if ($call instanceof $response) {
+				$response = $call;
+
+				continue;
+			}
+		}
+
+		return $response;
+	}
+
 	public function call($middleware, Request $request, Response $response)
 	{
 		$callback = call_user_func_array($middleware, [$request, $response, true]);

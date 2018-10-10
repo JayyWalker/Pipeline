@@ -58,4 +58,34 @@ class MiddlewareStackTest extends TestCase
 			$this->middlewareStack->call($middleware, $request, new Response)
 		);
 	}
+
+	/**
+	 * @covers \Pipeline\MiddlewareStack::execute()
+	 */
+	public function testExecuteResponse()
+	{
+		$this->middlewareStack->push(
+			function (Request $request, Response $response, $next) {
+				return $response->setContent(json_encode([
+					'data' => 'foo',
+				]));
+			}
+		);
+		$this->middlewareStack->push(
+			function (Request $request, Response $response, $next) {
+				return $response->headers->set('Content-Type', 'application/json');
+			}
+		);
+
+		$request = Request::create('/');
+		$response = $this->middlewareStack->execute($request);
+
+		$this->assertEquals(
+			'application/json', $response->headers->get('Content-Type')
+		);
+		$this->assertEquals(
+			'{"data":"foo"}',
+			$response->getContent()
+		);
+	}
 }
