@@ -63,6 +63,8 @@ class MiddlewareStack
 	{
 		$callback = call_user_func_array($middleware, [$request, $response, true]);
 
+		// TODO: Add ability to call classes
+
 		return $callback;
 	}
 
