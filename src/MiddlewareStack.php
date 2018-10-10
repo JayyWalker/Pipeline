@@ -15,10 +15,14 @@ class MiddlewareStack
 
 	/**
 	 * @param string|callable $middleware
+	 *
+	 * @return \Pipeline\MiddlewareStack
 	 */
 	public function push($middleware)
 	{
 		$this->middlewares[] = $middleware;
+
+		return $this;
 	}
 
 	/**

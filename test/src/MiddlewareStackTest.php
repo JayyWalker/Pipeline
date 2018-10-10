@@ -19,8 +19,9 @@ class MiddlewareStackTest extends TestCase
 
 	public function testPush()
 	{
-		$this->middlewareStack->push('Foo\\Bar');
-		$this->middlewareStack->push('Bar\\Foo');
+		$this->middlewareStack
+			->push('Foo\\Bar')
+			->push('Bar\\Foo');
 
 		$this->assertEquals(
 			['Foo\\Bar', 'Bar\\Foo'],
@@ -65,18 +66,19 @@ class MiddlewareStackTest extends TestCase
 	 */
 	public function testExecuteResponse()
 	{
-		$this->middlewareStack->push(
-			function (Request $request, Response $response, $next) {
-				return $response->setContent(json_encode([
-					'data' => 'foo',
-				]));
-			}
-		);
-		$this->middlewareStack->push(
-			function (Request $request, Response $response, $next) {
-				return $response->headers->set('Content-Type', 'application/json');
-			}
-		);
+		$this->middlewareStack
+			->push(
+				function (Request $request, Response $response, $next) {
+					return $response->setContent(json_encode([
+						'data' => 'foo',
+					]));
+				}
+			)
+			->push(
+				function (Request $request, Response $response, $next) {
+					return $response->headers->set('Content-Type', 'application/json');
+				}
+			);
 
 		$request = Request::create('/');
 		$baseResponse = new Response;
@@ -97,16 +99,17 @@ class MiddlewareStackTest extends TestCase
 	 */
 	public function testExecuteRedirectResponse()
 	{
-		$this->middlewareStack->push(
-			function (Request $request, Response $response, $next) {
-				return new RedirectResponse('/foo');
-			}
-		);
-		$this->middlewareStack->push(
-			function (Request $request, Response $response, $next) {
-				return $response->setContent('Hello World');
-			}
-		);
+		$this->middlewareStack
+			->push(
+				function (Request $request, Response $response, $next) {
+					return new RedirectResponse('/foo');
+				}
+			)
+			->push(
+				function (Request $request, Response $response, $next) {
+					return $response->setContent('Hello World');
+				}
+			);
 
 		$request = Request::create('/');
 		$baseResponse = new Response;
