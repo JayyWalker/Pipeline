@@ -2,7 +2,10 @@
 
 namespace Pipeline;
 
-class MiddlewareStack 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class MiddlewareStack
 {
 	/**
 	 * @var array
@@ -15,6 +18,13 @@ class MiddlewareStack
 	public function push($middleware)
 	{
 		$this->middlewares[] = $middleware;
+	}
+
+	public function call($middleware, Request $request, Response $response)
+	{
+		$callback = call_user_func_array($middleware, [$request, $response, true]);
+
+		return $callback;
 	}
 
 	/**
