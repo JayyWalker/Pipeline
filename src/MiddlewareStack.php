@@ -21,10 +21,8 @@ class MiddlewareStack
 		$this->middlewares[] = $middleware;
 	}
 
-	public function execute(Request $request)
+	public function execute(Request $request, Response $response)
 	{
-		$response = new Response;
-
 		foreach ($this->middlewares as $middleware) {
 			$call = $this->call($middleware, $request, $response);
 

@@ -79,7 +79,9 @@ class MiddlewareStackTest extends TestCase
 		);
 
 		$request = Request::create('/');
-		$response = $this->middlewareStack->execute($request);
+		$baseResponse = new Response;
+
+		$response = $this->middlewareStack->execute($request, $baseResponse);
 
 		$this->assertEquals(
 			'application/json', $response->headers->get('Content-Type')
@@ -107,8 +109,9 @@ class MiddlewareStackTest extends TestCase
 		);
 
 		$request = Request::create('/');
+		$baseResponse = new Response;
 
-		$response = $this->middlewareStack->execute($request);
+		$response = $this->middlewareStack->execute($request, $baseResponse);
 
 		$this->assertEquals(302, $response->getStatusCode());
 		$this->assertEquals('/foo', $response->getTargetUrl());
