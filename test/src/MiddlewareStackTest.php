@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -87,5 +88,29 @@ class MiddlewareStackTest extends TestCase
 			'{"data":"foo"}',
 			$response->getContent()
 		);
+	}
+
+	/**
+	 * @covers \Pipeline\MiddlewareStack::execute()
+	 */
+	public function testExecuteRedirectResponse()
+	{
+		$this->middlewareStack->push(
+			function (Request $request, Response $response, $next) {
+				return new RedirectResponse('/foo');
+			}
+		);
+		$this->middlewareStack->push(
+			function (Request $request, Response $response, $next) {
+				return $response->setContent('Hello World');
+			}
+		);
+
+		$request = Request::create('/');
+
+		$response = $this->middlewareStack->execute($request);
+
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertEquals('/foo', $response->getTargetUrl());
 	}
 }

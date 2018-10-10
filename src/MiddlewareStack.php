@@ -2,6 +2,7 @@
 
 namespace Pipeline;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,6 +27,12 @@ class MiddlewareStack
 
 		foreach ($this->middlewares as $middleware) {
 			$call = $this->call($middleware, $request, $response);
+
+			if ($call instanceof RedirectResponse) {
+				$response = $call;
+
+				break;
+			}
 
 			if ($call instanceof $response) {
 				$response = $call;
