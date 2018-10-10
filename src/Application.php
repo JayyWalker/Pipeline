@@ -11,19 +11,24 @@ class Application
      */
     protected $request;
 
-    /**
-     * @var array
-     */
-    protected $middlewares = [];
+	/**
+	 * @var \Pipeline\MiddlewareStack
+	 */
+    protected $middlewares;
 
-    /**
+    public function __construct()
+    {
+    	$this->middlewares = new MiddlewareStack();
+    }
+
+	/**
      * @param $middleware
      *
      * @return $this
      */
     public function use ($middleware)
     {
-        $this->middlewares[] = $middleware;
+        $this->middlewares->push($middleware);
 
         return $this;
     }
@@ -48,13 +53,11 @@ class Application
         return $this->request;
     }
 
-    /**
-     * getMiddlewares
-     *
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
     public function getMiddlewares ()
     {
-        return $this->middlewares;
+        return $this->middlewares->getMiddlewares();
     }
 }
